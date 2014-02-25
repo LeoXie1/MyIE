@@ -28,7 +28,7 @@ Type=0
 HeaderFile=MyIEDlg.h
 ImplementationFile=MyIEDlg.cpp
 Filter=D
-LastObject=IDC_IE_CTRL
+LastObject=IDC_BTN_HOME
 BaseClass=CDialog
 VirtualFilter=dWC
 
@@ -53,8 +53,8 @@ Class=CMyIEDlg
 ControlCount=6
 Control1=IDC_IE_CTRL,{8856F961-340A-11D0-A96B-00C04FD705A2},1342242816
 Control2=IDC_INPUT_URL,edit,1350631552
-Control3=IDC_STATIC,static,1342308352
+Control3=IDC_BTN_FWD,button,1342242816
 Control4=IDC_BTN_BACK,button,1342242816
-Control5=IDC_BTN_FWD,button,1342242816
-Control6=IDC_BTN_REFRESH,button,1342242816
+Control5=IDC_BTN_REFRESH,button,1342242816
+Control6=IDC_BTN_HOME,button,1342242816
 

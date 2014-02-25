@@ -46,11 +46,12 @@ protected:
 	afx_msg void OnBtnBack();
 	afx_msg void OnBtnFwd();
 	afx_msg void OnBtnRefresh();
+	afx_msg void OnBtnHome();
 	DECLARE_EVENTSINK_MAP()
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 public:
-	void PreTranslateMessage(MSG* pMsg);
+	BOOL PreTranslateMessage(MSG* pMsg);
 };
 
 //{{AFX_INSERT_LOCATION}}

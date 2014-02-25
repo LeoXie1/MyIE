@@ -1,0 +1,43 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: MyIE - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP207.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/MyIE.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\MYGITHUB\MyIE\MyIE.cpp"
+"E:\MYGITHUB\MyIE\MyIEDlg.cpp"
+"E:\MYGITHUB\MyIE\webbrowser2.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP207.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP208.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/MyIE.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\MYGITHUB\MyIE\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP208.tmp" 
+Creating command line "link.exe /nologo /subsystem:windows /incremental:yes /pdb:"Debug/MyIE.pdb" /debug /machine:I386 /out:"Debug/MyIE.exe" /pdbtype:sept  .\Debug\MyIE.obj .\Debug\MyIEDlg.obj .\Debug\StdAfx.obj .\Debug\webbrowser2.obj .\Debug\MyIE.res "
+<h3>Output Window</h3>
+Compiling...
+StdAfx.cpp
+Compiling...
+MyIE.cpp
+MyIEDlg.cpp
+webbrowser2.cpp
+Generating Code...
+Linking...
+Creating command line "bscmake.exe /nologo /o"Debug/MyIE.bsc"  .\Debug\StdAfx.sbr .\Debug\MyIE.sbr .\Debug\MyIEDlg.sbr .\Debug\webbrowser2.sbr"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+MyIE.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

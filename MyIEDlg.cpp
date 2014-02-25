@@ -85,6 +85,7 @@ BEGIN_MESSAGE_MAP(CMyIEDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTN_BACK, OnBtnBack)
 	ON_BN_CLICKED(IDC_BTN_FWD, OnBtnFwd)
 	ON_BN_CLICKED(IDC_BTN_REFRESH, OnBtnRefresh)
+	ON_BN_CLICKED(IDC_BTN_HOME, OnBtnHome)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -119,6 +120,7 @@ BOOL CMyIEDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 	
 	// TODO: Add extra initialization here
+	m_ctrlWeb.Navigate("www.google.com", NULL, NULL, NULL, NULL);
 	
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -181,27 +183,60 @@ END_EVENTSINK_MAP()
 void CMyIEDlg::OnCommandStateChangeIeCtrl(long Command, BOOL Enable) 
 {
 	// TODO: Add your control notification handler code here
-	
+	switch(Command)
+	{
+	case 1:
+		{
+			GetDlgItem(IDC_BTN_FWD)->EnableWindow(Enable);
+			break;
+		}
+	case 2:
+		{
+			GetDlgItem(IDC_BTN_BACK)->EnableWindow(Enable);
+			break;
+		}
+	}
 }
 
-void CMyIEDlg::OnBtnBack() 
+
+
+void CMyIEDlg::OnBtnRefresh() 
 {
 	// TODO: Add your control notification handler code here
-	
+	m_ctrlWeb.Refresh();
+}
+BOOL CMyIEDlg::PreTranslateMessage(MSG* pMsg)
+{
+	if(pMsg->message == WM_KEYDOWN)
+	{
+		if(pMsg->wParam == VK_RETURN)
+		{
+			char szURL[512] = {0};
+			GetDlgItem(IDC_INPUT_URL)->GetWindowText(szURL, sizeof(szURL));
+
+			m_ctrlWeb.Navigate(szURL, NULL, NULL, NULL, NULL);
+//			MessageBox(szURL, NULL, MB_OK);
+			return TRUE;
+		}
+	}
+
+	return CDialog::PreTranslateMessage(pMsg);
 }
 
 void CMyIEDlg::OnBtnFwd() 
 {
 	// TODO: Add your control notification handler code here
-	
+	m_ctrlWeb.GoForward();
 }
 
-void CMyIEDlg::OnBtnRefresh() 
+void CMyIEDlg::OnBtnBack() 
 {
 	// TODO: Add your control notification handler code here
-	
+	m_ctrlWeb.GoBack();
 }
-void CMyIEDlg::PreTranslateMessage(MSG* pMsg)
+
+void CMyIEDlg::OnBtnHome() 
 {
-	
+	// TODO: Add your control notification handler code here
+	m_ctrlWeb.Navigate("http://blog.csdn.net/skiing_886", NULL, NULL, NULL, NULL);
 }
