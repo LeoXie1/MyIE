@@ -112,3 +112,4 @@ public:
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
 #endif // !defined(AFX_WEBBROWSER2_H__D556B84A_E4EE_4570_924B_D3B944CB196E__INCLUDED_)
+

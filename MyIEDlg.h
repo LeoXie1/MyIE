@@ -47,11 +47,15 @@ protected:
 	afx_msg void OnBtnFwd();
 	afx_msg void OnBtnRefresh();
 	afx_msg void OnBtnHome();
+	afx_msg void OnBeforeNavigate2IeCtrl(LPDISPATCH pDisp, VARIANT FAR* URL, VARIANT FAR* Flags, VARIANT FAR* TargetFrameName, VARIANT FAR* PostData, VARIANT FAR* Headers, BOOL FAR* Cancel);
 	DECLARE_EVENTSINK_MAP()
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 public:
 	BOOL PreTranslateMessage(MSG* pMsg);
+
+public:
+	void SetLocationURL(CString &strURL);
 };
 
 //{{AFX_INSERT_LOCATION}}

@@ -177,6 +177,7 @@ HCURSOR CMyIEDlg::OnQueryDragIcon()
 BEGIN_EVENTSINK_MAP(CMyIEDlg, CDialog)
     //{{AFX_EVENTSINK_MAP(CMyIEDlg)
 	ON_EVENT(CMyIEDlg, IDC_IE_CTRL, 105 /* CommandStateChange */, OnCommandStateChangeIeCtrl, VTS_I4 VTS_BOOL)
+	ON_EVENT(CMyIEDlg, IDC_IE_CTRL, 250 /* BeforeNavigate2 */, OnBeforeNavigate2IeCtrl, VTS_DISPATCH VTS_PVARIANT VTS_PVARIANT VTS_PVARIANT VTS_PVARIANT VTS_PVARIANT VTS_PBOOL)
 	//}}AFX_EVENTSINK_MAP
 END_EVENTSINK_MAP()
 
@@ -215,6 +216,7 @@ BOOL CMyIEDlg::PreTranslateMessage(MSG* pMsg)
 			GetDlgItem(IDC_INPUT_URL)->GetWindowText(szURL, sizeof(szURL));
 
 			m_ctrlWeb.Navigate(szURL, NULL, NULL, NULL, NULL);
+			SetLocationURL(m_ctrlWeb.GetLocationURL());
 //			MessageBox(szURL, NULL, MB_OK);
 			return TRUE;
 		}
@@ -239,4 +241,15 @@ void CMyIEDlg::OnBtnHome()
 {
 	// TODO: Add your control notification handler code here
 	m_ctrlWeb.Navigate("http://blog.csdn.net/skiing_886", NULL, NULL, NULL, NULL);
+}
+
+void CMyIEDlg::SetLocationURL(CString &strURL)
+{
+	GetDlgItem(IDC_INPUT_URL)->SetWindowText((LPSTR)(LPCTSTR)strURL);
+}
+
+void CMyIEDlg::OnBeforeNavigate2IeCtrl(LPDISPATCH pDisp, VARIANT FAR* URL, VARIANT FAR* Flags, VARIANT FAR* TargetFrameName, VARIANT FAR* PostData, VARIANT FAR* Headers, BOOL FAR* Cancel) 
+{
+	// TODO: Add your control notification handler code here
+	
 }

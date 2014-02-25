@@ -28,7 +28,7 @@ Type=0
 HeaderFile=MyIEDlg.h
 ImplementationFile=MyIEDlg.cpp
 Filter=D
-LastObject=IDC_BTN_HOME
+LastObject=IDC_IE_CTRL
 BaseClass=CDialog
 VirtualFilter=dWC
 
