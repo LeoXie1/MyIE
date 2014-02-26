@@ -120,7 +120,9 @@ BOOL CMyIEDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 	
 	// TODO: Add extra initialization here
-	m_ctrlWeb.Navigate("www.google.com", NULL, NULL, NULL, NULL);
+	COleVariant vtEmpty;
+	m_ctrlWeb.Navigate(_T("www.google.com"), &vtEmpty, &vtEmpty, &vtEmpty, &vtEmpty);
+//	m_ctrlWeb.Navigate("www.google.com", NULL, NULL, NULL, NULL);
 	
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -178,6 +180,8 @@ BEGIN_EVENTSINK_MAP(CMyIEDlg, CDialog)
     //{{AFX_EVENTSINK_MAP(CMyIEDlg)
 	ON_EVENT(CMyIEDlg, IDC_IE_CTRL, 105 /* CommandStateChange */, OnCommandStateChangeIeCtrl, VTS_I4 VTS_BOOL)
 	ON_EVENT(CMyIEDlg, IDC_IE_CTRL, 250 /* BeforeNavigate2 */, OnBeforeNavigate2IeCtrl, VTS_DISPATCH VTS_PVARIANT VTS_PVARIANT VTS_PVARIANT VTS_PVARIANT VTS_PVARIANT VTS_PBOOL)
+	ON_EVENT(CMyIEDlg, IDC_IE_CTRL, 259 /* DocumentComplete */, OnDocumentCompleteIeCtrl, VTS_DISPATCH VTS_PVARIANT)
+	ON_EVENT(CMyIEDlg, IDC_IE_CTRL, 262 /* WindowSetResizable */, OnWindowSetResizableIeCtrl, VTS_BOOL)
 	//}}AFX_EVENTSINK_MAP
 END_EVENTSINK_MAP()
 
@@ -215,8 +219,9 @@ BOOL CMyIEDlg::PreTranslateMessage(MSG* pMsg)
 			char szURL[512] = {0};
 			GetDlgItem(IDC_INPUT_URL)->GetWindowText(szURL, sizeof(szURL));
 
-			m_ctrlWeb.Navigate(szURL, NULL, NULL, NULL, NULL);
-			SetLocationURL(m_ctrlWeb.GetLocationURL());
+			COleVariant vtEmpty;//不要仅仅传递NULL，这样可能导致程序的奔溃
+			m_ctrlWeb.Navigate(szURL, &vtEmpty, &vtEmpty, &vtEmpty, &vtEmpty);
+//			SetLocationURL(m_ctrlWeb.GetLocationURL());
 //			MessageBox(szURL, NULL, MB_OK);
 			return TRUE;
 		}
@@ -240,7 +245,8 @@ void CMyIEDlg::OnBtnBack()
 void CMyIEDlg::OnBtnHome() 
 {
 	// TODO: Add your control notification handler code here
-	m_ctrlWeb.Navigate("http://blog.csdn.net/skiing_886", NULL, NULL, NULL, NULL);
+	COleVariant vtEmpty;
+	m_ctrlWeb.Navigate("http://blog.csdn.net/skiing_886", &vtEmpty, &vtEmpty, &vtEmpty, &vtEmpty);
 }
 
 void CMyIEDlg::SetLocationURL(CString &strURL)
@@ -249,6 +255,35 @@ void CMyIEDlg::SetLocationURL(CString &strURL)
 }
 
 void CMyIEDlg::OnBeforeNavigate2IeCtrl(LPDISPATCH pDisp, VARIANT FAR* URL, VARIANT FAR* Flags, VARIANT FAR* TargetFrameName, VARIANT FAR* PostData, VARIANT FAR* Headers, BOOL FAR* Cancel) 
+{
+	// TODO: Add your control notification handler code here
+	CString strURL = (BSTR)URL->bstrVal;
+	char* pszURl = (LPSTR)(LPCTSTR)strURL;
+//	MessageBox(pszURl, NULL, MB_OK);
+	//干掉某个网页
+	if(strstr(pszURl, "10jqka") != NULL)
+	{
+		//Cancel = TRUE;//
+		pDisp->Stop();
+		MessageBox(_T("此网站不允许被访问"), NULL, MB_OK);
+	}
+
+}
+
+void CMyIEDlg::OnDocumentCompleteIeCtrl(LPDISPATCH pDisp, VARIANT FAR* URL) 
+{
+	// TODO: Add your control notification handler code here
+	SetLocationURL(m_ctrlWeb.GetLocationURL());
+
+	//设置网页字体
+	VARIANT vtParam;
+	long i = 4;
+	vtParam.vt = VT_I4;
+	vtParam.lVal = i;
+	m_ctrlWeb.ExecWB(OLECMDID_ZOOM, OLECMDEXECOPT_DONTPROMPTUSER, &vtParam, NULL);
+}
+
+void CMyIEDlg::OnWindowSetResizableIeCtrl(BOOL Resizable) 
 {
 	// TODO: Add your control notification handler code here
 	
