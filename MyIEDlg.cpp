@@ -258,13 +258,14 @@ void CMyIEDlg::OnBeforeNavigate2IeCtrl(LPDISPATCH pDisp, VARIANT FAR* URL, VARIA
 {
 	// TODO: Add your control notification handler code here
 	CString strURL = (BSTR)URL->bstrVal;
-	char* pszURl = (LPSTR)(LPCTSTR)strURL;
+	char* pszURL = (LPSTR)(LPCTSTR)strURL;
 //	MessageBox(pszURl, NULL, MB_OK);
 	//干掉某个网页
-	if(strstr(pszURl, "10jqka") != NULL)
+	if(strstr(pszURL, "10jqka") != NULL)
 	{
-		//Cancel = TRUE;//
-		pDisp->Stop();
+		*Cancel = VARIANT_TRUE;//取消导航 
+		//pDisp->Stop();
+		//m_ctrlWeb.Stop();
 		MessageBox(_T("此网站不允许被访问"), NULL, MB_OK);
 	}
 
