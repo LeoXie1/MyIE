@@ -121,7 +121,7 @@ BOOL CMyIEDlg::OnInitDialog()
 	
 	// TODO: Add extra initialization here
 	COleVariant vtEmpty;
-	m_ctrlWeb.Navigate(_T("www.google.com"), &vtEmpty, &vtEmpty, &vtEmpty, &vtEmpty);
+	m_ctrlWeb.Navigate(_T("E:\\MyGitHub\\MyIE\\MyIE\\Debug\\hello.html"), &vtEmpty, &vtEmpty, &vtEmpty, &vtEmpty);
 //	m_ctrlWeb.Navigate("www.google.com", NULL, NULL, NULL, NULL);
 	
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -277,15 +277,57 @@ void CMyIEDlg::OnDocumentCompleteIeCtrl(LPDISPATCH pDisp, VARIANT FAR* URL)
 	SetLocationURL(m_ctrlWeb.GetLocationURL());
 
 	//设置网页字体
-	VARIANT vtParam;
+/*	VARIANT vtParam;
 	long i = 4;
 	vtParam.vt = VT_I4;
 	vtParam.lVal = i;
 	m_ctrlWeb.ExecWB(OLECMDID_ZOOM, OLECMDEXECOPT_DONTPROMPTUSER, &vtParam, NULL);
+*/
+//	MessageBox("OnDocumentCompleteIeCtrl", NULL, MB_OK);
+	
+	ModifyText();
+
+// 	char szText[10240];
+// 	m_ctrlWeb.GetWindowText(szText, sizeof(szText));
+
 }
 
 void CMyIEDlg::OnWindowSetResizableIeCtrl(BOOL Resizable) 
 {
 	// TODO: Add your control notification handler code here
 	
+}
+
+void CMyIEDlg::ModifyText()
+{
+	LPDISPATCH pIDisp = NULL;
+	pIDisp = m_ctrlWeb.GetDocument();//获取mshtml组件的IDispatch接口
+	
+	IHTMLDocument2* pDoc = NULL;
+	HRESULT hr = pIDisp->QueryInterface(IID_IHTMLDocument2, (void**)&pDoc);//获取组件的IHTMLDocument2接口
+	if(FAILED(hr))
+	{
+		MessageBox("获取DOM接口失败", NULL, MB_OK);
+		return;
+	}
+
+	IHTMLElement* spBody = NULL;
+	hr = pDoc->get_body(&spBody);
+	if(FAILED(hr))
+	{
+		return;
+	}
+	BSTR bstrText = NULL;
+	hr = spBody->get_innerText(&bstrText);
+	if(FAILED(hr))
+	{
+		return;
+	}
+	CString strType = bstrText;
+	MessageBox(strType, NULL, MB_OK);
+
+	CString strNew = "<h1>我是新字符串</h1>i am new string";
+	bstrText = strNew.AllocSysString();//CString to BSTR
+//	spBody->put_innerText(bstrText);
+	hr = spBody->put_innerHTML(bstrText);
 }

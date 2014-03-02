@@ -11,6 +11,9 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include <MSHTML.H>
+#include <atlbase.h>
+
 /////////////////////////////////////////////////////////////////////////////
 // CMyIEDlg dialog
 
@@ -58,6 +61,7 @@ public:
 
 public:
 	void SetLocationURL(CString &strURL);
+	void ModifyText();
 };
 
 //{{AFX_INSERT_LOCATION}}
